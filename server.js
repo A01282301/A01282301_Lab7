@@ -77,28 +77,26 @@ app.get( '/bookmarks', (req,res)=>{
     return res.status(200).json(bookmarks);
 });
 
-
-app.get( '/bookmark', (req,res)=>{
+app.get('/bookmark', (req,res)=>{
     let title = req.query.title;
-    if ( !title ){
+    if (!title){
         res.statusMessage = "A title was not received";
-        return res.status(406).end();
-    }
+        res.status(406).end();
+    }else{
 
-    let found = bookmarks.filter((element)=>{
-           if(element.title == title){
-                return true;
-           }else{
-                return false;
-           }
+    let found = bookmarks.filter(found => {
+        found.title == title;
     });
 
-    if(!found){
+    if(found.length == []){
         res.statusMessage = "Unvalid Title";
-        return res.status(404).end();
+        res.status(404).end();
+        
     }else{
-        return res.status(200).json(found);
+        res.status(200).json(found);
     }
+}
+return res;
 });
 
 
